@@ -345,6 +345,11 @@ jobs:
         # is x64 / ARM64; the produced Package.msi is globbed since its bin/<platform>/ dir varies.
         if: env.UPLOAD_ARTIFACT == 'true'
         run: |
+          # Fork rebrand fix: the MSI machinery (preprocess.py version read + main
+          # auto-component) expects the binary named <app_name>.exe = RemoteX.exe, but
+          # the build outputs rustdesk.exe. Rename it (RustDesk's own build renames its
+          # exe too) so the version reads and the MSI includes the app.
+          if (Test-Path ./rustdesk/rustdesk.exe) { Move-Item -Force ./rustdesk/rustdesk.exe ./rustdesk/RemoteX.exe }
           pushd ./res/msi
           python preprocess.py --arp -d ../../rustdesk
           nuget restore msi.sln
