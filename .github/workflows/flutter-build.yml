@@ -335,6 +335,11 @@ jobs:
         uses: microsoft/setup-msbuild@6fb02220983dee41ce7ae257b6f4d8f9bf5ed4ce # v2
 
       - name: Build msi
+        # NOTE: non-fatal on this fork — RustDesk's preprocess.py has an untested
+        # app_name != "RustDesk" path that leaves WiX preprocessor vars undefined.
+        # The portable .exe (built above) is the primary Windows download; the MSI
+        # is a nice-to-have we fix separately. Don't let it block Publish Release.
+        continue-on-error: true
         # Builds the MSI for the matrix arch. res/msi (WiX v4 + native CustomActions) carries
         # both x64 and ARM64 platform configs; WcaUtil/DUtil ship arm64 libs. msbuild platform
         # is x64 / ARM64; the produced Package.msi is globbed since its bin/<platform>/ dir varies.
