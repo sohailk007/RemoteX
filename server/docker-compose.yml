@@ -1,0 +1,37 @@
+# RemoteX self-hosted server (SL Brothers)
+# Two services from the open-source RustDesk server:
+#   hbbs - ID / rendezvous server (matches users by ID, coordinates connections)
+#   hbbr - relay server (carries traffic when a direct P2P link isn't possible)
+#
+# 1. Put this file on a Linux VPS that has a PUBLIC IP (or a domain pointing to it).
+# 2. Replace YOUR_HOST below with that public IP or domain (e.g. relay.slbrothers.com).
+# 3. Run:  docker compose up -d
+# 4. Get your server's public key:  cat ./data/id_ed25519.pub
+#    You bake that key + host into the RemoteX client (see ../DEPLOY.md, "Bake your server").
+#
+# Firewall: open TCP 21115-21119 and UDP 21116.
+
+services:
+  hbbs:
+    container_name: hbbs
+    image: rustdesk/rustdesk-server:latest
+    command: hbbs -r YOUR_HOST:21117
+    ports:
+      - "21115:21115"      # NAT type test (TCP)
+      - "21116:21116"      # ID registration & hole punching (TCP)
+      - "21116:21116/udp"  # ID registration & hole punching (UDP)
+      - "21118:21118"      # web client support (TCP, optional)
+    volumes:
+      - ./data:/root
+    restart: unless-stopped
+
+  hbbr:
+    container_name: hbbr
+    image: rustdesk/rustdesk-server:latest
+    command: hbbr
+    ports:
+      - "21117:21117"      # relay (TCP)
+      - "21119:21119"      # web client relay (TCP, optional)
+    volumes:
+      - ./data:/root
+    restart: unless-stopped
