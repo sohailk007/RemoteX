@@ -41,7 +41,8 @@ class _OnlineStatusWidgetState extends State<OnlineStatusWidget> {
   double? get height => bind.isIncomingOnly() ? null : em * 3;
 
   void onUsePublicServerGuide() {
-    const url = "https://rustdesk.com/pricing";
+    // Points at our own self-hosting guide, not upstream's pricing page.
+    const url = "https://github.com/sohailk007/RemoteX/blob/master/DEPLOY.md";
     canLaunchUrlString(url).then((can) {
       if (can) {
         launchUrlString(url);
