@@ -73,7 +73,21 @@ lazy_static::lazy_static! {
     static ref KEY_PAIR: Mutex<Option<KeyPair>> = Default::default();
     static ref USER_DEFAULT_CONFIG: RwLock<(UserDefaultConfig, Instant)> = RwLock::new((UserDefaultConfig::load(), Instant::now()));
     pub static ref NEW_STORED_PEER_CONFIG: Mutex<HashSet<String>> = Default::default();
-    pub static ref DEFAULT_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
+    // RemoteX product defaults. These are only fallbacks: a value the user sets
+    // (or one baked into a custom client) still wins, so anyone can turn these
+    // back on and their choice is saved.
+    //
+    // enable-audio = N: the controlled machine does not capture or transmit any
+    // audio -- including its microphone -- unless the user explicitly enables it
+    // in Settings -> Security -> Permissions. Upstream defaults this on (option2bool
+    // treats an unset "enable-" key as true), which means a support session would
+    // pick up the customer's microphone by default. For a remote support product
+    // that is the wrong default, so we invert it.
+    pub static ref DEFAULT_SETTINGS: RwLock<HashMap<String, String>> =
+        RwLock::new(HashMap::from([(
+            keys::OPTION_ENABLE_AUDIO.to_owned(),
+            "N".to_owned(),
+        )]));
     pub static ref OVERWRITE_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
     pub static ref DEFAULT_DISPLAY_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
     pub static ref OVERWRITE_DISPLAY_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
