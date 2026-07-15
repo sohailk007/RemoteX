@@ -10,6 +10,7 @@ import 'package:flutter_hbb/consts.dart';
 import 'package:flutter_hbb/models/input_model.dart';
 import 'package:flutter_hbb/models/state_model.dart';
 import 'package:flutter_hbb/desktop/pages/remote_page.dart';
+import 'package:flutter_hbb/desktop/pages/remote_wall_view.dart';
 import 'package:flutter_hbb/desktop/widgets/remote_toolbar.dart';
 import 'package:flutter_hbb/desktop/widgets/tabbar_widget.dart';
 import 'package:flutter_hbb/desktop/widgets/material_mod_popup_menu.dart'
@@ -43,6 +44,9 @@ class _ConnectionTabPageState extends State<ConnectionTabPage> {
   final tabController =
       Get.put(DesktopTabController(tabType: DesktopTabType.remoteScreen));
   final contentKey = UniqueKey();
+  // When true, all open sessions are shown live side by side in a grid
+  // instead of only the selected tab.
+  final RxBool wallMode = false.obs;
   static const IconData selectedIcon = Icons.desktop_windows_sharp;
   static const IconData unselectedIcon = Icons.desktop_windows_outlined;
 
@@ -139,11 +143,31 @@ class _ConnectionTabPageState extends State<ConnectionTabPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             _RelativeMouseModeHint(tabController: tabController),
+            _WallModeButton(wallMode: wallMode),
             const AddButton(),
           ],
         ),
         selectedBorderColor: MyTheme.accent,
-        pageViewBuilder: (pageView) => pageView,
+        // In wall mode every open session is shown live in a grid instead of
+        // only the selected tab.
+        //
+        // The page view must stay mounted: the sessions live inside it, and
+        // removing it would dispose every RemotePage and close the connections.
+        // Hiding it with Offstage keeps them alive, and since the native video
+        // textures keep being updated regardless of what Flutter paints, the
+        // wall can render those same texture ids live.
+        pageViewBuilder: (pageView) => Obx(
+          () => Stack(
+            children: [
+              Offstage(offstage: wallMode.value, child: pageView),
+              if (wallMode.value)
+                RemoteWallView(
+                  tabController: tabController,
+                  onTileTap: () => wallMode.value = false,
+                ),
+            ],
+          ),
+        ),
         labelGetter: DesktopTab.tablabelGetter,
         tabBuilder: (key, icon, label, themeConf) => Obx(() {
           final connectionType = ConnectionTypeState.find(key);
@@ -559,6 +583,24 @@ class _ConnectionTabPageState extends State<ConnectionTabPage> {
 
 /// A widget that displays a hint in the tab bar when relative mouse mode is active.
 /// This helps users remember how to exit relative mouse mode.
+/// Toggles between the normal single-session view and the live grid of all
+/// open sessions.
+class _WallModeButton extends StatelessWidget {
+  final RxBool wallMode;
+
+  const _WallModeButton({Key? key, required this.wallMode}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() => ActionIcon(
+          message: wallMode.value ? 'Back to session' : 'Show all sessions',
+          icon: wallMode.value ? Icons.fullscreen : Icons.grid_view,
+          onTap: () => wallMode.value = !wallMode.value,
+          isClose: false,
+        ));
+  }
+}
+
 class _RelativeMouseModeHint extends StatelessWidget {
   final DesktopTabController tabController;
 
