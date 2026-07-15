@@ -446,9 +446,10 @@ class _CmHeaderState extends State<_CmHeader>
         gradient: LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
+          // RemoteX brand gradient, matching the Orbit-X mark.
           colors: [
-            Color(0xff00bfe1),
-            Color(0xff0071ff),
+            Color(0xff12C9BC),
+            Color(0xff0A5BE0),
           ],
         ),
       ),
