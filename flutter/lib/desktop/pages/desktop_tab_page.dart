@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hbb/common.dart';
+import 'package:flutter_hbb/common/widgets/app_lock.dart';
 import 'package:flutter_hbb/consts.dart';
 import 'package:flutter_hbb/desktop/pages/desktop_home_page.dart';
 import 'package:flutter_hbb/desktop/pages/desktop_setting_page.dart';
@@ -91,6 +92,12 @@ class _DesktopTabPageState extends State<DesktopTabPage> {
 
   @override
   Widget build(BuildContext context) {
+    // App lock: while a PIN is set and has not been entered this run, the main
+    // window shows nothing but the lock screen. Checked here rather than in
+    // main() so that unlocking simply rebuilds into the normal UI.
+    if (AppLock.shouldLock) {
+      return AppLockScreen(onUnlocked: () => setState(() {}));
+    }
     final tabWidget = Container(
         child: Scaffold(
             backgroundColor: Theme.of(context).colorScheme.background,
