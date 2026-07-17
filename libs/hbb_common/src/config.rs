@@ -89,7 +89,21 @@ lazy_static::lazy_static! {
             "N".to_owned(),
         )]));
     pub static ref OVERWRITE_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
-    pub static ref DEFAULT_DISPLAY_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
+    // disable_audio = Y: start every session muted, so the viewer's speaker plays
+    // nothing until they choose to unmute. enable-audio=N above already stops the
+    // controlled side capturing audio at all; this is the other half, so that even
+    // when a user does enable audio on their machine, connecting to it does not
+    // immediately start playing their sound out loud on the technician's desk.
+    //
+    // UserDefaultConfig::get() falls through to this map for keys it has no
+    // explicit default for, and DisableAudio::default_disable_audio() is
+    // read("disable_audio") == "Y". Unmuting from the toolbar saves "N" against
+    // the user's own options, which take precedence over this default.
+    pub static ref DEFAULT_DISPLAY_SETTINGS: RwLock<HashMap<String, String>> =
+        RwLock::new(HashMap::from([(
+            keys::OPTION_DISABLE_AUDIO.to_owned(),
+            "Y".to_owned(),
+        )]));
     pub static ref OVERWRITE_DISPLAY_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
     pub static ref DEFAULT_LOCAL_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
     pub static ref OVERWRITE_LOCAL_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
