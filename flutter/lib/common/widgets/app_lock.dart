@@ -91,52 +91,56 @@ class _AppLockScreenState extends State<AppLockScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 300),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(height: 56, child: loadLogo()),
-              const SizedBox(height: 24),
-              Icon(Icons.lock_outline_rounded, size: 32, color: MyTheme.accent),
-              const SizedBox(height: 10),
-              Text(
-                translate('Enter your PIN to unlock'),
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 15),
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: _controller,
-                focusNode: _focus,
-                obscureText: true,
-                autofocus: true,
-                textAlign: TextAlign.center,
-                keyboardType: TextInputType.number,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                onSubmitted: (_) => _submit(),
-                onChanged: (_) {
-                  if (_error != null) setState(() => _error = null);
-                },
-                decoration: InputDecoration(
-                  hintText: translate('PIN'),
-                  errorText: _error,
-                  border: const OutlineInputBorder(),
-                  contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 300),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(height: 56, child: loadLogo()),
+                const SizedBox(height: 24),
+                Icon(Icons.lock_outline_rounded,
+                    size: 32, color: MyTheme.accent),
+                const SizedBox(height: 10),
+                Text(
+                  translate('Enter your PIN to unlock'),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 15),
                 ),
-              ),
-              const SizedBox(height: 12),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: _submit,
-                  child: Text(translate('Unlock')),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: _controller,
+                  focusNode: _focus,
+                  obscureText: true,
+                  autofocus: true,
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  onSubmitted: (_) => _submit(),
+                  onChanged: (_) {
+                    if (_error != null) setState(() => _error = null);
+                  },
+                  decoration: InputDecoration(
+                    hintText: translate('PIN'),
+                    errorText: _error,
+                    border: const OutlineInputBorder(),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 14),
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 12),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: _submit,
+                    child: Text(translate('Unlock')),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ).marginSymmetric(horizontal: 24),
+        ),
       ),
     );
   }
