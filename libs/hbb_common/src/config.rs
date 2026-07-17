@@ -145,8 +145,12 @@ const CHARS: &[char] = &[
     'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
 ];
 
-pub const RENDEZVOUS_SERVERS: &[&str] = &["rs-ny.rustdesk.com"];
-pub const RS_PUB_KEY: &str = "OeVuKk5nlHiXp+APNn0Y3pC1Iwpwn44JGqrQCsWqmBw=";
+// SL Brothers' own rendezvous/relay server. Clients ship pointing here, so a
+// user never has to configure a server, and no session is coordinated by a
+// third party. The key is the public half of the server's id_ed25519 pair;
+// clients refuse to talk to a server that cannot prove the matching private key.
+pub const RENDEZVOUS_SERVERS: &[&str] = &["relay.slbrothers.co.uk"];
+pub const RS_PUB_KEY: &str = "FFWoBG8GIExaqOwLKr5pFq5ig5aPt6jwVYVjY2fwYM0=";
 
 pub const RENDEZVOUS_PORT: i32 = 21116;
 pub const RELAY_PORT: i32 = 21117;
