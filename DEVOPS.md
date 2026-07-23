@@ -108,22 +108,46 @@ From another machine: `nc -vz relay.slbrothers.com 21116`
 ## 3. Bake the server into the client
 
 So users never configure anything. Edit
-[`libs/hbb_common/src/config.rs`](libs/hbb_common/src/config.rs) (~line 120):
+[`libs/hbb_common/src/config.rs`](libs/hbb_common/src/config.rs) (~line 152):
 
 ```rust
-pub const RENDEZVOUS_SERVERS: &[&str] = &["relay.slbrothers.com"];
+pub const RENDEZVOUS_SERVERS: &[&str] = &["relay.slbrothers.co.uk"];
 pub const RS_PUB_KEY: &str = "<contents of id_ed25519.pub>";
 ```
 
-Commit, then build (tag push triggers the pipeline):
+Done in **v1.1.0** (`relay.slbrothers.co.uk`). Build via tag push.
 
-```bash
-git tag v1.1.0 && git push origin v1.1.0
+**Acceptance test:** install the built client on a **clean** machine. It must show
+an ID and go **online without any manual server entry**. Confirm on the server:
+`docker compose logs hbbs | grep -i register`
+
+### 3a. Rollout to machines that already ran an older build  ⚠️
+
+RemoteX caches the last server it used (`rendezvous_server` in the config), and
+that cache **outranks the value baked into the binary** (`get_rendezvous_server`
+checks the cache before the built-in default). So:
+
+- **Clean machines** — a v1.1.0 install points at `relay.slbrothers.co.uk` on its
+  own. Nothing to do.
+- **Machines that ran an earlier build** — a plain upgrade will **not** switch
+  them; the cached `rs-ny.rustdesk.com` wins. You must set the server explicitly.
+
+Push [`deploy/set-remotex-server.ps1`](deploy/set-remotex-server.ps1) to those
+machines via MDM/GPO/RMM (as SYSTEM/admin). It sets `custom-rendezvous-server`
+(priority #2, which beats the cache) + `relay-server` + `key` using RemoteX's own
+`--option` CLI, then restarts the service and verifies:
+
+```powershell
+# on each machine, elevated:
+powershell -ExecutionPolicy Bypass -File .\set-remotex-server.ps1 -ClearCache
 ```
 
-**Acceptance test:** install the built client on a clean machine. It must show an
-ID and go **online without any manual server entry**. Confirm on the server:
-`docker compose logs hbbs | grep -i register`
+Verify per machine (prints the active server):
+
+```powershell
+& "$env:ProgramFiles\RemoteX\RemoteX.exe" --option custom-rendezvous-server
+# -> relay.slbrothers.co.uk
+```
 
 ---
 
