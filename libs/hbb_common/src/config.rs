@@ -1197,12 +1197,15 @@ impl Config {
     }
 
     pub fn no_register_device() -> bool {
+        // Belt-and-braces with is_disable_account(): the open-source server has no
+        // device-registration API on :21114, so never derive/attempt it. Keeps
+        // get_api_server() empty and avoids the :21114 calls entirely.
         BUILTIN_SETTINGS
             .read()
             .unwrap()
             .get(keys::OPTION_REGISTER_DEVICE)
             .map(|v| v == "N")
-            .unwrap_or(false)
+            .unwrap_or(true)
     }
 
     pub fn is_disable_change_permanent_password() -> bool {
@@ -2847,7 +2850,13 @@ pub fn is_disable_ab() -> bool {
 
 #[inline]
 pub fn is_disable_account() -> bool {
-    is_some_hard_opton("disable-account")
+    // RemoteX (SL Brothers) runs on the open-source server, which has no account /
+    // web API. The client would otherwise POST to <server>:21114/api/currentUser,
+    // which does not exist there; that failure (and its TCP-proxy fallback through
+    // 21116) surfaces to users as "Failed to secure tcp". Disabling the account
+    // stops refreshCurrentUser() before it makes any API call. ID + one-time /
+    // permanent password connections do not use accounts, so nothing is lost.
+    true
 }
 
 #[inline]
