@@ -93,6 +93,14 @@ See **[DEPLOY.md](DEPLOY.md)** for the full guide (server setup, configuration, 
 
 ---
 
+## 🛠️ Internal tools (SL Brothers ops)
+
+*Not a customer product.* The **[Assisted Off-Screen Browser](https://github.com/sohailk007/RemoteX/releases/latest/download/RemoteX-AssistedBrowser-v1.0.0-win64.zip)** (Windows, self-contained — no install, no setup) is an internal support utility for driving a headless browser **inside an authorized RemoteX session**, without taking over the user's screen.
+
+It works only with the machine user's consent (they share their Session ID + password) and while the RemoteX "session active" indicator is shown. **For SL Brothers staff use — not general download.** Usage: unzip and double-click `Start-Assist` on the remote machine, forward port `9222` in RemoteX, then open `Operator-Console` on your PC. See the bundled `README-FIRST.txt` and `TWO-MACHINE-TEST.md`.
+
+---
+
 ## 📄 Open source & credits
 
 RemoteX is **open-source software** licensed under the **[GNU AGPL-3.0](LICENCE)**.
