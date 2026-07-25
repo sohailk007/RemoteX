@@ -67,7 +67,11 @@ lazy_static::lazy_static! {
     static ref STATUS: RwLock<Status> = RwLock::new(Status::load());
     static ref TRUSTED_DEVICES: RwLock<(Vec<TrustedDevice>, bool)> = Default::default();
     static ref ONLINE: Mutex<HashMap<String, i64>> = Default::default();
-    pub static ref PROD_RENDEZVOUS_SERVER: RwLock<String> = RwLock::new("".to_owned());
+    // Bake the SL Brothers server in as the "production" rendezvous server. This makes
+    // every fresh install (all platforms) auto-ready on relay.slbrothers.co.uk with NO
+    // manual setup and NO "set up your own server" hint -- get_custom_rendezvous_server()
+    // (common.rs) returns this, so using_public_server() is false out of the box.
+    pub static ref PROD_RENDEZVOUS_SERVER: RwLock<String> = RwLock::new("relay.slbrothers.co.uk".to_owned());
     pub static ref EXE_RENDEZVOUS_SERVER: RwLock<String> = Default::default();
     pub static ref APP_NAME: RwLock<String> = RwLock::new("RemoteX".to_owned());
     static ref KEY_PAIR: Mutex<Option<KeyPair>> = Default::default();
