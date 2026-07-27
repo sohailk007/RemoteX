@@ -68,6 +68,6 @@ jobs:
               gh api -X PATCH "repos/$REPO/releases/assets/$id" -f name="$new" >/dev/null || echo "    (rename failed: $name)"
             fi
           done < assets.txt
-          echo "Marking $TAG as the latest release..."
-          gh release edit "$TAG" --repo "$REPO" --latest || true
+          echo "Marking $TAG as a full (non-pre) latest release..."
+          gh release edit "$TAG" --repo "$REPO" --prerelease=false --latest || true
           echo "Done."
