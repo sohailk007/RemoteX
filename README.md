@@ -15,6 +15,8 @@
 
 ## ⬇️ Download
 
+> **Install and go — no setup.** RemoteX comes preconfigured for the SL Brothers server, so it connects automatically the moment you open it. Nothing to configure on any platform. The links below always point to the **latest** release.
+
 ### 🪟 Windows — recommended
 
 <p align="center">
