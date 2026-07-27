@@ -1,0 +1,73 @@
+name: Rename release assets to RemoteX
+
+# The build uploads assets as rustdesk-<version>-*.  This renames them to the
+# RemoteX-<platform>-* names your download links / README expect, and marks the
+# release as "latest". Runs automatically after "Flutter Tag Build" finishes, and
+# can be run by hand on any tag.
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to fix (e.g. v1.1.2)"
+        required: true
+  workflow_run:
+    workflows: ["Flutter Tag Build"]
+    types: [completed]
+
+permissions:
+  contents: write
+
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Rename rustdesk-* assets to RemoteX-* and mark latest
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          TAG: ${{ github.event.inputs.tag || github.event.workflow_run.head_branch }}
+        run: |
+          set -e
+          if [ -z "$TAG" ]; then echo "No tag to process"; exit 0; fi
+          echo "Renaming assets on release $TAG ..."
+          if ! gh api "repos/$REPO/releases/tags/$TAG" --jq '.assets[] | "\(.id)\t\(.name)"' > assets.txt; then
+            echo "Release $TAG not found (nothing to do)"; exit 0
+          fi
+          while IFS=$'\t' read -r id name; do
+            new=""
+            case "$name" in
+              *x86-sciter.exe)        new="RemoteX-Windows-x86-32bit.exe" ;;
+              *x86_64.msi)            new="RemoteX-Windows-x86_64.msi" ;;
+              *x86_64.exe)            new="RemoteX-Windows-x86_64.exe" ;;
+              *aarch64-aarch64.dmg)   new="RemoteX-macOS-AppleSilicon.dmg" ;;
+              *x86_64-x86_64.dmg)     new="RemoteX-macOS-Intel.dmg" ;;
+              *universal.apk)         new="RemoteX-Android-universal.apk" ;;
+              *aarch64.apk)           new="RemoteX-Android-arm64.apk" ;;
+              *armv7.apk)             new="RemoteX-Android-armv7.apk" ;;
+              *x86_64.apk)            new="RemoteX-Android-x86_64.apk" ;;
+              *armv7-sciter.deb)      new="RemoteX-Linux-armv7-sciter.deb" ;;
+              *x86_64-sciter.deb)     new="RemoteX-Linux-x86_64-sciter.deb" ;;
+              *aarch64.deb)           new="RemoteX-Linux-arm64.deb" ;;
+              *x86_64.deb)            new="RemoteX-Linux-x86_64.deb" ;;
+              *aarch64-suse.rpm)      new="RemoteX-Linux-arm64-suse.rpm" ;;
+              *x86_64-suse.rpm)       new="RemoteX-Linux-x86_64-suse.rpm" ;;
+              *aarch64.rpm)           new="RemoteX-Linux-arm64.rpm" ;;
+              *x86_64.rpm)            new="RemoteX-Linux-x86_64.rpm" ;;
+              *aarch64.AppImage)      new="RemoteX-Linux-arm64.AppImage" ;;
+              *x86_64.AppImage)       new="RemoteX-Linux-x86_64.AppImage" ;;
+              *x86_64-sciter.flatpak) new="RemoteX-Linux-x86_64-sciter.flatpak" ;;
+              *aarch64.flatpak)       new="RemoteX-Linux-arm64.flatpak" ;;
+              *x86_64.flatpak)        new="RemoteX-Linux-x86_64.flatpak" ;;
+              *pkg.tar.zst)           new="RemoteX-Linux-x86_64.pkg.tar.zst" ;;
+              *) new="" ;;  # skip anything unmatched (e.g. *-unsigned.tar.gz)
+            esac
+            if [ -n "$new" ] && [ "$new" != "$name" ]; then
+              echo "  $name  ->  $new"
+              gh api -X PATCH "repos/$REPO/releases/assets/$id" -f name="$new" >/dev/null || echo "    (rename failed: $name)"
+            fi
+          done < assets.txt
+          echo "Marking $TAG as the latest release..."
+          gh release edit "$TAG" --repo "$REPO" --latest || true
+          echo "Done."
