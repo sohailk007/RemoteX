@@ -97,14 +97,14 @@ See **[DEPLOY.md](DEPLOY.md)** for the full guide (server setup, configuration, 
 
 ## 🛠️ Internal tools (SL Brothers ops)
 
-*Not a customer product.* The **[Assisted Off-Screen Browser](https://github.com/sohailk007/RemoteX/releases/download/assisted-v1.2.0/RemoteX-AssistedBrowser-v1.2.0-win64.zip)** (Windows, self-contained — no install, no setup) is an internal support utility for driving a browser **inside an authorized RemoteX session**. As of **v1.2** you browse privately in the console on your own PC and can hand a tab — carrying your login — to the remote person's screen with the **Open on B** button.
+*Not a customer product.* The **[Assisted Off-Screen Browser](https://github.com/sohailk007/RemoteX/releases/download/assisted-v1.3.0/RemoteX-AssistedBrowser-v1.3.0-win64.zip)** (Windows, self-contained — no install, no setup) is an internal support utility for driving a browser **inside an authorized RemoteX session**. As of **v1.3** you browse privately on your own PC and hand a tab — carrying your login — to one or many remote screens, and the **Dashboard** gives a RemoteX-style tiled grid of all machines you can click into and control live.
 
-**⬇️ Download (v1.2.0):**
+**⬇️ Download (v1.3.0):**
 ```
-https://github.com/sohailk007/RemoteX/releases/download/assisted-v1.2.0/RemoteX-AssistedBrowser-v1.2.0-win64.zip
+https://github.com/sohailk007/RemoteX/releases/download/assisted-v1.3.0/RemoteX-AssistedBrowser-v1.3.0-win64.zip
 ```
 
-It works only with the machine user's consent (they share their Session ID + password) and while the RemoteX "session active" indicator is shown. **For SL Brothers staff use — not general download.** Usage: unzip and, on the remote machine, double-click `Start-Assist` (hidden control) or `Start-Shared` (visible hand-off), forward port `9222` in RemoteX, then open `Operator-Console` on your PC. See the bundled `README-FIRST.txt` and `TWO-MACHINE-TEST.md`.
+It works only with the machine user's consent (they share their Session ID + password) and while the RemoteX "session active" indicator is shown. **For SL Brothers staff use — not general download.** Usage: unzip and, on each remote machine, double-click `Start-Assist` (hidden control) or `Start-Shared` (visible hand-off), forward its port in RemoteX (B=9222, C=9224, D=9225…), then open `Operator-Console` (single machine) or `Dashboard` (many machines) on your PC. See the bundled `README-FIRST.txt` and `TWO-MACHINE-TEST.md`.
 
 ---
 
