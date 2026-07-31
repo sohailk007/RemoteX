@@ -15,36 +15,36 @@
 
 ## ⬇️ Download
 
-> **Install and go — no setup.** RemoteX comes preconfigured for the SL Brothers server, so it connects automatically the moment you open it. Nothing to configure on any platform. The links below always point to the **latest** release.
+> **Install and go — no setup.** RemoteX comes preconfigured for the SL Brothers server, so it connects automatically the moment you open it. Nothing to configure on any platform. The links below point to the current stable release (v1.1.1).
 
 ### 🪟 Windows — recommended
 
 <p align="center">
-  <a href="https://github.com/sohailk007/RemoteX/releases/latest/download/RemoteX-Windows-x86_64.msi">
+  <a href="https://github.com/sohailk007/RemoteX/releases/download/v1.1.1/RemoteX-Windows-x86_64.msi">
     <b>⬇️ Download RemoteX for Windows (.msi installer)</b>
   </a>
 </p>
 
 Run the installer once and RemoteX is ready to use. **This is the version you want** — it installs RemoteX properly, so it works with Windows UAC prompts (your technician can click admin dialogs) and starts with your computer.
 
-<sub>Prefer not to install? There's a <a href="https://github.com/sohailk007/RemoteX/releases/latest">portable .exe</a> — but it can't interact with UAC dialogs, so the screen goes black when one appears. Use the installer for anything ongoing.</sub>
+<sub>Prefer not to install? There's a <a href="https://github.com/sohailk007/RemoteX/releases/tag/v1.1.1">portable .exe</a> — but it can't interact with UAC dialogs, so the screen goes black when one appears. Use the installer for anything ongoing.</sub>
 
 ### All platforms
 
 | Your device | Download | Notes |
 |---|---|---|
-| **Windows** (most PCs) | **[Installer (.msi)](https://github.com/sohailk007/RemoteX/releases/latest/download/RemoteX-Windows-x86_64.msi)** ⭐ | Recommended |
-| **Windows** (portable) | [.exe](https://github.com/sohailk007/RemoteX/releases/latest/download/RemoteX-Windows-x86_64.exe) | No install needed |
-| **Mac** (M1/M2/M3/M4) | [Apple Silicon .dmg](https://github.com/sohailk007/RemoteX/releases/latest/download/RemoteX-macOS-AppleSilicon.dmg) | See [Mac note](#-mac-users-read-this) |
-| **Mac** (Intel) | [Intel .dmg](https://github.com/sohailk007/RemoteX/releases/latest/download/RemoteX-macOS-Intel.dmg) | See [Mac note](#-mac-users-read-this) |
-| **Android** | [Universal .apk](https://github.com/sohailk007/RemoteX/releases/latest/download/RemoteX-Android-universal.apk) | Works on almost all phones |
-| **Ubuntu / Debian** | [.deb](https://github.com/sohailk007/RemoteX/releases/latest/download/RemoteX-Linux-x86_64.deb) | `sudo apt install ./RemoteX-*.deb` |
-| **Fedora / RHEL** | [.rpm](https://github.com/sohailk007/RemoteX/releases/latest/download/RemoteX-Linux-x86_64.rpm) | `sudo dnf install ./RemoteX-*.rpm` |
-| **Any Linux** | [.AppImage](https://github.com/sohailk007/RemoteX/releases/latest/download/RemoteX-Linux-x86_64.AppImage) | `chmod +x` then run |
+| **Windows** (most PCs) | **[Installer (.msi)](https://github.com/sohailk007/RemoteX/releases/download/v1.1.1/RemoteX-Windows-x86_64.msi)** ⭐ | Recommended |
+| **Windows** (portable) | [.exe](https://github.com/sohailk007/RemoteX/releases/download/v1.1.1/RemoteX-Windows-x86_64.exe) | No install needed |
+| **Mac** (M1/M2/M3/M4) | [Apple Silicon .dmg](https://github.com/sohailk007/RemoteX/releases/download/v1.1.1/RemoteX-macOS-AppleSilicon.dmg) | See [Mac note](#-mac-users-read-this) |
+| **Mac** (Intel) | [Intel .dmg](https://github.com/sohailk007/RemoteX/releases/download/v1.1.1/RemoteX-macOS-Intel.dmg) | See [Mac note](#-mac-users-read-this) |
+| **Android** | [Universal .apk](https://github.com/sohailk007/RemoteX/releases/download/v1.1.1/RemoteX-Android-universal.apk) | Works on almost all phones |
+| **Ubuntu / Debian** | [.deb](https://github.com/sohailk007/RemoteX/releases/download/v1.1.1/RemoteX-Linux-x86_64.deb) | `sudo apt install ./RemoteX-*.deb` |
+| **Fedora / RHEL** | [.rpm](https://github.com/sohailk007/RemoteX/releases/download/v1.1.1/RemoteX-Linux-x86_64.rpm) | `sudo dnf install ./RemoteX-*.rpm` |
+| **Any Linux** | [.AppImage](https://github.com/sohailk007/RemoteX/releases/download/v1.1.1/RemoteX-Linux-x86_64.AppImage) | `chmod +x` then run |
 
 > **Not sure which?** On Windows pick the **.msi**. On Mac, check  → *About This Mac* — if it says **Apple M1/M2/M3/M4** take Apple Silicon, otherwise Intel.
 
-**[→ See all downloads (ARM64, Flatpak, openSUSE, Arch, 32-bit…)](https://github.com/sohailk007/RemoteX/releases/latest)**
+**[→ See all downloads (ARM64, Flatpak, openSUSE, Arch, 32-bit…)](https://github.com/sohailk007/RemoteX/releases/tag/v1.1.1)**
 
 *iOS is not available — Apple only permits installs through the App Store.*
 
