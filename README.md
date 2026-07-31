@@ -97,11 +97,11 @@ See **[DEPLOY.md](DEPLOY.md)** for the full guide (server setup, configuration, 
 
 ## 🛠️ Internal tools (SL Brothers ops)
 
-*Not a customer product.* The **[Assisted Off-Screen Browser](https://github.com/sohailk007/RemoteX/releases/download/assisted-v1.4.0/RemoteX-AssistedBrowser-v1.4.0-win64.zip)** (Windows, self-contained — no install, no setup) is an internal support utility for driving a browser **inside an authorized RemoteX session**. As of **v1.4** you control each machine's browser **invisibly** from a tiled Dashboard, then click **Reveal** to pop a prepped tab — carrying your login — onto that person's own screen. (Also: private browsing + push to one or many machines.)
+*Not a customer product.* The **[Assisted Off-Screen Browser](https://github.com/sohailk007/RemoteX/releases/download/assisted-v1.4.1/RemoteX-AssistedBrowser-v1.4.1-win64.zip)** (Windows, self-contained — no install, no setup) is an internal support utility for driving a browser **inside an authorized RemoteX session**. You control each machine's browser **invisibly** from a tiled Dashboard, then click **Reveal** to pop a prepped tab onto that person's own screen — **in Chrome, already logged in** (carries cookies *and* localStorage/JWT sessions). Hardened to run for hours.
 
-**⬇️ Download (v1.4.0):**
+**⬇️ Download (v1.4.1):**
 ```
-https://github.com/sohailk007/RemoteX/releases/download/assisted-v1.4.0/RemoteX-AssistedBrowser-v1.4.0-win64.zip
+https://github.com/sohailk007/RemoteX/releases/download/assisted-v1.4.1/RemoteX-AssistedBrowser-v1.4.1-win64.zip
 ```
 
 It works only with the machine user's consent (they share their Session ID + password) and while the RemoteX "session active" indicator is shown. **For SL Brothers staff use — not general download.** Usage: unzip and, on each remote machine, double-click `Start-Assist` (hidden control) or `Start-Shared` (visible hand-off), forward its port in RemoteX (B=9222, C=9224, D=9225…), then open `Operator-Console` (single machine) or `Dashboard` (many machines) on your PC. See the bundled `README-FIRST.txt` and `TWO-MACHINE-TEST.md`.
