@@ -75,14 +75,34 @@ Full details: **[Privacy Statement](PRIVACY.md)**
 
 ## 🍎 Mac users, read this
 
-The Mac app isn't code-signed yet, so macOS will say *"RemoteX is damaged"*. It isn't — it just has no Apple certificate. To run it:
+Setting up RemoteX on a Mac takes three quick steps: install it, run one Terminal command, then grant two permissions.
 
-1. Open the `.dmg`, drag **RemoteX** to **Applications**.
-2. Open **Terminal** and run once:
-   ```bash
-   xattr -cr /Applications/RemoteX.app
-   ```
-3. Open RemoteX normally.
+### 1. Install
+
+Download the right build (→ *About This Mac*: **Apple M1/M2/M3/M4** = Apple Silicon, otherwise Intel), then open the `.dmg` and drag **RemoteX** into **Applications**.
+
+- [Apple Silicon .dmg](https://github.com/sohailk007/RemoteX/releases/download/v1.1.2/RemoteX-macOS-AppleSilicon.dmg) · [Intel .dmg](https://github.com/sohailk007/RemoteX/releases/download/v1.1.2/RemoteX-macOS-Intel.dmg)
+
+### 2. Run this command once
+
+The app isn't Apple-signed yet, so macOS says *"RemoteX is damaged"*. It isn't — it just has no Apple certificate. Open **Terminal** (⌘-Space → type *Terminal*) and run:
+
+```bash
+xattr -cr /Applications/RemoteX.app
+```
+
+Then open **RemoteX** from Applications as normal. It's preconfigured for the SL Brothers server, so it connects automatically — nothing to set up.
+
+### 3. Grant permissions (so your technician can see & control the screen)
+
+The first time someone connects, macOS blocks screen access until you allow it. Open **System Settings → Privacy & Security**, and turn **RemoteX on** under **both**:
+
+- **Screen Recording** — otherwise the technician sees a **black screen**
+- **Accessibility** — otherwise they **can't control** the mouse/keyboard
+
+Quit and reopen RemoteX after granting these. Now share your **Session ID + password** and you're ready.
+
+> **Still "failed to connect"?** Make sure you're on **v1.1.2 or newer** (older Mac builds were missing the server). Reinstall from the link above, or set it manually in **Settings → Network → ID/Relay server**: server `relay.slbrothers.co.uk`.
 
 *Windows may likewise show "Windows protected your PC" → click **More info** → **Run anyway**.*
 
