@@ -64,12 +64,15 @@ class _PortForwardTabPageState extends State<PortForwardTabPage> {
         final args = jsonDecode(call.arguments);
         final id = args['id'];
         final isRDP = args['isRDP'];
-        windowOnTop(windowId());
         if (tabController.state.value.tabs.indexWhere((e) => e.key == id) >=
             0) {
           debugPrint("port forward $id exists");
+          // Already open -- do NOT steal focus. On a flaky link the forward is
+          // re-invoked on every reconnect; popping the window to the front each
+          // time is what made the port-forward window feel like spam.
           return;
         }
+        windowOnTop(windowId());   // only bring the window forward for a genuinely NEW port-forward
         tabController.add(TabInfo(
             key: id,
             label: id,
