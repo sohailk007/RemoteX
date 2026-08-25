@@ -9,6 +9,7 @@ import 'package:flutter_hbb/desktop/pages/port_forward_page.dart';
 import 'package:flutter_hbb/desktop/widgets/tabbar_widget.dart';
 import 'package:flutter_hbb/utils/multi_window_manager.dart';
 import 'package:get/get.dart';
+import 'package:window_manager/window_manager.dart';
 
 class PortForwardTabPage extends StatefulWidget {
   final Map<String, dynamic> params;
@@ -56,6 +57,14 @@ class _PortForwardTabPageState extends State<PortForwardTabPage> {
   void initState() {
     super.initState();
 
+    // Open the port-forward window MINIMIZED so it never pops onto the operator's screen.
+    // It stays in the taskbar (restore it from there if you ever need to disconnect a forward).
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      try {
+        await windowManager.minimize();
+      } catch (_) {}
+    });
+
     rustDeskWinManager.setMethodHandler((call, fromWindowId) async {
       debugPrint(
           "[Port Forward] call ${call.method} with args ${call.arguments} from window $fromWindowId");
@@ -72,7 +81,8 @@ class _PortForwardTabPageState extends State<PortForwardTabPage> {
           // time is what made the port-forward window feel like spam.
           return;
         }
-        windowOnTop(windowId());   // only bring the window forward for a genuinely NEW port-forward
+        // Keep the window MINIMIZED even for a new forward -- never bring it onto the screen.
+        try { await windowManager.minimize(); } catch (_) {}
         tabController.add(TabInfo(
             key: id,
             label: id,
