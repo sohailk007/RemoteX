@@ -15,36 +15,36 @@
 
 ## ⬇️ Download
 
-> **Install and go — no setup.** RemoteX comes preconfigured for the SL Brothers server, so it connects automatically the moment you open it. Nothing to configure on any platform. The links below point to the current stable release (v1.1.4).
+> **Install and go — no setup.** RemoteX comes preconfigured for the SL Brothers server, so it connects automatically the moment you open it. Nothing to configure on any platform. The links below point to the current stable release (v1.1.5).
 
 ### 🪟 Windows — recommended
 
 <p align="center">
-  <a href="https://github.com/sohailk007/RemoteX/releases/download/v1.1.4/RemoteX-Windows-x86_64.msi">
+  <a href="https://github.com/sohailk007/RemoteX/releases/download/v1.1.5/RemoteX-Windows-x86_64.msi">
     <b>⬇️ Download RemoteX for Windows (.msi installer)</b>
   </a>
 </p>
 
 Run the installer once and RemoteX is ready to use. **This is the version you want** — it installs RemoteX properly, so it works with Windows UAC prompts (your technician can click admin dialogs) and starts with your computer.
 
-<sub>Prefer not to install? There's a <a href="https://github.com/sohailk007/RemoteX/releases/tag/v1.1.4">portable .exe</a> — but it can't interact with UAC dialogs, so the screen goes black when one appears. Use the installer for anything ongoing.</sub>
+<sub>Prefer not to install? There's a <a href="https://github.com/sohailk007/RemoteX/releases/tag/v1.1.5">portable .exe</a> — but it can't interact with UAC dialogs, so the screen goes black when one appears. Use the installer for anything ongoing.</sub>
 
 ### All platforms
 
 | Your device | Download | Notes |
 |---|---|---|
-| **Windows** (most PCs) | **[Installer (.msi)](https://github.com/sohailk007/RemoteX/releases/download/v1.1.4/RemoteX-Windows-x86_64.msi)** ⭐ | Recommended |
-| **Windows** (portable) | [.exe](https://github.com/sohailk007/RemoteX/releases/download/v1.1.4/RemoteX-Windows-x86_64.exe) | No install needed |
-| **Mac** (M1/M2/M3/M4) | [Apple Silicon .dmg](https://github.com/sohailk007/RemoteX/releases/download/v1.1.4/RemoteX-macOS-AppleSilicon.dmg) | See [Mac note](#-mac-users-read-this) |
-| **Mac** (Intel) | [Intel .dmg](https://github.com/sohailk007/RemoteX/releases/download/v1.1.4/RemoteX-macOS-Intel.dmg) | See [Mac note](#-mac-users-read-this) |
-| **Android** | [Universal .apk](https://github.com/sohailk007/RemoteX/releases/download/v1.1.4/RemoteX-Android-universal.apk) | Works on almost all phones |
-| **Ubuntu / Debian** | [.deb](https://github.com/sohailk007/RemoteX/releases/download/v1.1.4/RemoteX-Linux-x86_64.deb) | `sudo apt install ./RemoteX-*.deb` |
-| **Fedora / RHEL** | [.rpm](https://github.com/sohailk007/RemoteX/releases/download/v1.1.4/RemoteX-Linux-x86_64.rpm) | `sudo dnf install ./RemoteX-*.rpm` |
-| **Any Linux** | [.AppImage](https://github.com/sohailk007/RemoteX/releases/download/v1.1.4/RemoteX-Linux-x86_64.AppImage) | `chmod +x` then run |
+| **Windows** (most PCs) | **[Installer (.msi)](https://github.com/sohailk007/RemoteX/releases/download/v1.1.5/RemoteX-Windows-x86_64.msi)** ⭐ | Recommended |
+| **Windows** (portable) | [.exe](https://github.com/sohailk007/RemoteX/releases/download/v1.1.5/RemoteX-Windows-x86_64.exe) | No install needed |
+| **Mac** (M1/M2/M3/M4) | [Apple Silicon .dmg](https://github.com/sohailk007/RemoteX/releases/download/v1.1.5/RemoteX-macOS-AppleSilicon.dmg) | See [Mac note](#-mac-users-read-this) |
+| **Mac** (Intel) | [Intel .dmg](https://github.com/sohailk007/RemoteX/releases/download/v1.1.5/RemoteX-macOS-Intel.dmg) | See [Mac note](#-mac-users-read-this) |
+| **Android** | [Universal .apk](https://github.com/sohailk007/RemoteX/releases/download/v1.1.5/RemoteX-Android-universal.apk) | Works on almost all phones |
+| **Ubuntu / Debian** | [.deb](https://github.com/sohailk007/RemoteX/releases/download/v1.1.5/RemoteX-Linux-x86_64.deb) | `sudo apt install ./RemoteX-*.deb` |
+| **Fedora / RHEL** | [.rpm](https://github.com/sohailk007/RemoteX/releases/download/v1.1.5/RemoteX-Linux-x86_64.rpm) | `sudo dnf install ./RemoteX-*.rpm` |
+| **Any Linux** | [.AppImage](https://github.com/sohailk007/RemoteX/releases/download/v1.1.5/RemoteX-Linux-x86_64.AppImage) | `chmod +x` then run |
 
 > **Not sure which?** On Windows pick the **.msi**. On Mac, check  → *About This Mac* — if it says **Apple M1/M2/M3/M4** take Apple Silicon, otherwise Intel.
 
-**[→ See all downloads (ARM64, Flatpak, openSUSE, Arch, 32-bit…)](https://github.com/sohailk007/RemoteX/releases/tag/v1.1.4)**
+**[→ See all downloads (ARM64, Flatpak, openSUSE, Arch, 32-bit…)](https://github.com/sohailk007/RemoteX/releases/tag/v1.1.5)**
 
 *iOS is not available — Apple only permits installs through the App Store.*
 
@@ -81,7 +81,7 @@ Setting up RemoteX on a Mac takes three quick steps: install it, run one Termina
 
 Download the right build (→ *About This Mac*: **Apple M1/M2/M3/M4** = Apple Silicon, otherwise Intel), then open the `.dmg` and drag **RemoteX** into **Applications**.
 
-- [Apple Silicon .dmg](https://github.com/sohailk007/RemoteX/releases/download/v1.1.4/RemoteX-macOS-AppleSilicon.dmg) · [Intel .dmg](https://github.com/sohailk007/RemoteX/releases/download/v1.1.4/RemoteX-macOS-Intel.dmg)
+- [Apple Silicon .dmg](https://github.com/sohailk007/RemoteX/releases/download/v1.1.5/RemoteX-macOS-AppleSilicon.dmg) · [Intel .dmg](https://github.com/sohailk007/RemoteX/releases/download/v1.1.5/RemoteX-macOS-Intel.dmg)
 
 ### 2. Run this command once
 
@@ -102,7 +102,7 @@ The first time someone connects, macOS blocks screen access until you allow it. 
 
 Quit and reopen RemoteX after granting these. Now share your **Session ID + password** and you're ready.
 
-> **Still "failed to connect"?** Make sure you're on **v1.1.4 or newer** (older Mac builds were missing the server). Reinstall from the link above, or set it manually in **Settings → Network → ID/Relay server**: server `relay.slbrothers.co.uk`.
+> **Still "failed to connect"?** Make sure you're on **v1.1.5 or newer** (older Mac builds were missing the server). Reinstall from the link above, or set it manually in **Settings → Network → ID/Relay server**: server `relay.slbrothers.co.uk`.
 
 *Windows may likewise show "Windows protected your PC" → click **More info** → **Run anyway**.*
 
