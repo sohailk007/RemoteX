@@ -21,7 +21,10 @@ permissions:
 jobs:
   rename:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    # Run on manual dispatch, or whenever a tag build COMPLETES (success or failure). The build
+    # can be marked "failure" by a flaky non-Windows packaging job (e.g. AppImage/Flatpak) while
+    # the Windows/macOS installers uploaded fine -- we still want those renamed to RemoteX-*.
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' || github.event.workflow_run.conclusion == 'failure' }}
     steps:
       - name: Rename rustdesk-* assets to RemoteX-* and mark latest
         env:
