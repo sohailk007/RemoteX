@@ -124,6 +124,22 @@ See **[DEPLOY.md](DEPLOY.md)** for the full guide (server setup, configuration, 
 https://github.com/sohailk007/RemoteX/releases/download/assist-v1.4.8/RemoteX-AssistedBrowser-v1.4.8-win64.zip
 ```
 
+### Deploy through the RemoteX session terminal (remote machine)
+
+Run these **on the remote machine** via the RemoteX Terminal (`powershell`). Paste each as a **single line** (if it wraps and errors, press `Esc` and paste again as one line). The agent must run on the **remote** machine only — never on your own operator PC.
+
+**① First time — install + run** (downloads the zip, extracts to the Desktop, starts the hidden agent):
+```powershell
+$u='https://github.com/sohailk007/RemoteX/releases/download/assist-v1.4.8/RemoteX-AssistedBrowser-v1.4.8-win64.zip'; $d="$env:USERPROFILE\Desktop\RemoteX-Assist"; taskkill /F /IM node.exe 2>$null; Remove-Item $d -Recurse -Force -EA SilentlyContinue; Invoke-WebRequest $u -OutFile "$env:TEMP\rx.zip" -UseBasicParsing; Expand-Archive "$env:TEMP\rx.zip" $d -Force; $b=(Get-ChildItem $d -Directory -Filter 'RemoteX-AssistedBrowser-*')[0].FullName; Start-Process -WindowStyle Hidden "$b\runtime\node.exe" "$b\operator\assist-agent.js"; "installed + started on $env:COMPUTERNAME"
+```
+
+**② After it's installed — run only** (no download; just starts the hidden agent again after a reboot):
+```powershell
+$d="$env:USERPROFILE\Desktop\RemoteX-Assist"; $b=(Get-ChildItem $d -Directory -Filter 'RemoteX-AssistedBrowser-*' -EA SilentlyContinue)[0].FullName; taskkill /F /IM node.exe 2>$null; Start-Process -WindowStyle Hidden "$b\runtime\node.exe" "$b\operator\assist-agent.js"; "started on $env:COMPUTERNAME"
+```
+
+**Stop it:** `taskkill /F /IM node.exe` &nbsp;·&nbsp; **"Already running… will exit"** is normal (it's already up). Then, on **your** PC, forward the port in RemoteX (B=9222, C=9224, D=9225…) and open the `Dashboard`.
+
 It works only with the machine user's consent (they share their Session ID + password) and while the RemoteX "session active" indicator is shown. **For SL Brothers staff use — not general download.** Usage: unzip and, on each remote machine, double-click `Start-Hidden` (hidden control + Reveal — the one that works with the Dashboard) or `Start-Shared` (visible hand-off), forward its port in RemoteX (B=9222, C=9224, D=9225…), then open `Dashboard` (many machines) or `Operator-Console` (single machine) on your PC. Or deploy it straight through the RemoteX session terminal — see the bundled `Deploy-through-RemoteX-Terminal.txt`, plus `README-FIRST.txt` and `TWO-MACHINE-TEST.md`.
 
 ---
