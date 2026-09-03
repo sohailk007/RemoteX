@@ -7,6 +7,7 @@ import 'package:flutter_hbb/desktop/widgets/tabbar_widget.dart';
 import 'package:flutter_hbb/models/model.dart';
 import 'package:flutter_hbb/models/platform_model.dart';
 import 'package:get/get.dart';
+import 'package:window_manager/window_manager.dart';
 
 const double _kColumn1Width = 30;
 const double _kColumn4Width = 100;
@@ -291,6 +292,16 @@ class _PortForwardPageState extends State<PortForwardPage>
       result.add(_PortForward.fromJson(e));
     }
     pfs.value = result;
+    // A tunnel that is ALREADY configured means this window opened for a silent reconnect,
+    // not for setup -- hide it so it never pops up (the tunnel keeps running in the
+    // background; manage it from the main window). A forward with nothing configured yet is
+    // a fresh setup, so leave the window visible so the local/remote ports can be entered.
+    if (!widget.isRDP && result.isNotEmpty) {
+      try {
+        await windowManager.setSkipTaskbar(true);
+        await windowManager.hide();
+      } catch (_) {}
+    }
   }
 
   buildRdp(BuildContext context) {

@@ -57,13 +57,13 @@ class _PortForwardTabPageState extends State<PortForwardTabPage> {
   void initState() {
     super.initState();
 
-    // Hide the port-forward window completely: no taskbar button (so no hover thumbnail) and
-    // minimized off-screen. The tunnel keeps running in the background; manage/disconnect it
-    // from the main RemoteX window's connection list.
+    // No taskbar button (so no hover thumbnail) for the port-forward window. Whether the
+    // window is actually HIDDEN or shown is decided per-tunnel in PortForwardPage: an
+    // already-configured tunnel (i.e. a silent reconnect) hides itself; a brand-new forward
+    // with nothing configured yet stays visible so it can be set up.
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       try {
         await windowManager.setSkipTaskbar(true);
-        await windowManager.minimize();
       } catch (_) {}
     });
 
@@ -83,8 +83,9 @@ class _PortForwardTabPageState extends State<PortForwardTabPage> {
           // time is what made the port-forward window feel like spam.
           return;
         }
-        // Keep the window hidden (no taskbar button) even for a new forward.
-        try { await windowManager.setSkipTaskbar(true); await windowManager.minimize(); } catch (_) {}
+        // No taskbar button; PortForwardPage hides the window itself if this tunnel is
+        // already configured (a silent reconnect) and leaves it visible for fresh setup.
+        try { await windowManager.setSkipTaskbar(true); } catch (_) {}
         tabController.add(TabInfo(
             key: id,
             label: id,
