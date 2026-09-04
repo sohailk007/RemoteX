@@ -47,9 +47,13 @@ class _PortForwardTabPageState extends State<PortForwardTabPage>
   }
 
   Future<void> _hideNow() async {
+    // IMPORTANT: this is a desktop_multi_window SUB-window, so windowManager (which drives the
+    // MAIN window) is a no-op here. Hide via the sub-window's own WindowController.
+    try {
+      await WindowController.fromWindowId(windowId()).hide();
+    } catch (_) {}
     try {
       await windowManager.setSkipTaskbar(true);
-      await windowManager.hide();
     } catch (_) {}
   }
 
