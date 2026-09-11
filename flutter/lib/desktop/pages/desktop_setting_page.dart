@@ -1460,10 +1460,14 @@ class _SafetyState extends State<_Safety> with AutomaticKeepAliveClientMixin {
         child: Consumer<ServerModel>(builder: (context, model, child) {
           final enableHideCm = model.approveMode == 'password' &&
               model.verificationMethod == kUsePermanentPassword;
+          // RemoteX: default ON. Read the option directly (model.hideCm sync is disabled
+          // upstream); hidden unless explicitly turned off ("N").
+          final hideChecked =
+              bind.mainGetOptionSync(key: 'allow-hide-cm') != 'N';
           onHideCmChanged(bool? b) {
             if (b != null) {
-              bind.mainSetOption(
-                  key: 'allow-hide-cm', value: bool2option('allow-hide-cm', b));
+              bind.mainSetOption(key: 'allow-hide-cm', value: b ? 'Y' : 'N');
+              setState(() {});
             }
           }
 
@@ -1471,11 +1475,11 @@ class _SafetyState extends State<_Safety> with AutomaticKeepAliveClientMixin {
               message: enableHideCm ? "" : translate('hide_cm_tip'),
               child: GestureDetector(
                 onTap:
-                    enableHideCm ? () => onHideCmChanged(!model.hideCm) : null,
+                    enableHideCm ? () => onHideCmChanged(!hideChecked) : null,
                 child: Row(
                   children: [
                     Checkbox(
-                            value: model.hideCm,
+                            value: hideChecked && enableHideCm,
                             onChanged: enabled && enableHideCm
                                 ? onHideCmChanged
                                 : null)

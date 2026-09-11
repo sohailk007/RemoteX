@@ -88,7 +88,9 @@ pub fn approve_mode() -> ApproveMode {
 pub fn hide_cm() -> bool {
     approve_mode() == ApproveMode::Password
         && verification_method() == VerificationMethod::OnlyUsePermanentPassword
-        && crate::config::option2bool("allow-hide-cm", &Config::get_option("allow-hide-cm"))
+        // RemoteX: default ON. With a permanent password set (unattended access), hide the
+        // connection management window unless the operator explicitly turned it off ("N").
+        && Config::get_option("allow-hide-cm") != "N"
 }
 
 const VERSION_LEN: usize = 2;
